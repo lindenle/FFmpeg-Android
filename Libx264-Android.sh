@@ -16,7 +16,7 @@ git checkout stable
 
 git log --pretty=format:%H -1 > ../libx264-version
 
-TOOLCHAIN=/tmp/gavin
+TOOLCHAIN=/tmp/toolchain
 SYSROOT=$TOOLCHAIN/sysroot/
 $ANDROID_NDK/build/tools/make-standalone-toolchain.sh --platform=android-18 --install-dir=$TOOLCHAIN --system=darwin-x86
 
