@@ -49,7 +49,7 @@ git checkout `cat ../ffmpeg-version`
 
 git log --pretty=format:%H -1 > ../ffmpeg-version
 
-TOOLCHAIN=/tmp/gavin
+TOOLCHAIN=/tmp/toolchain
 SYSROOT=$TOOLCHAIN/sysroot/
 $ANDROID_NDK/build/tools/make-standalone-toolchain.sh --platform=android-18 --install-dir=$TOOLCHAIN --system=darwin-x86
 
@@ -150,6 +150,7 @@ for version in armv7; do
   rm libavcodec/log2_tab.o
   rm libswresample/log2_tab.o
   rm libavformat/log2_tab.o
+  echo "$CC -L../build/libx264/armv7/lib -lm -lz -shared --sysroot=$SYSROOT -Wl,--no-undefined -Wl,-z,noexecstack $EXTRA_LDFLAGS libavutil/*.o libavutil/arm/*.o libavcodec/*.o libavcodec/arm/*.o libavformat/*.o libswresample/*.o libswscale/*.o compat/*.o libswresample/arm/*.o libavfilter/*.o -lx264 -o $PREFIX/libffmpeg.so"
   $CC -L../build/libx264/armv7/lib -lm -lz -shared --sysroot=$SYSROOT -Wl,--no-undefined -Wl,-z,noexecstack $EXTRA_LDFLAGS libavutil/*.o libavutil/arm/*.o libavcodec/*.o libavcodec/arm/*.o libavformat/*.o libswresample/*.o libswscale/*.o compat/*.o libswresample/arm/*.o libavfilter/*.o -lx264 -o $PREFIX/libffmpeg.so
 
   cp $PREFIX/libffmpeg.so $PREFIX/libffmpeg-debug.so
